@@ -1,5 +1,4 @@
-
-
+# Draft
 from extract import fetch_data
 from transform import clean_data
 from load import save_to_csv
