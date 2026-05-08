@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(message)s")
 
-nbp_api_url = os.getenv("NBP_API_URL")
 def fetch_data(api_url, currency, start_date, end_date):
     try:
         full_url = f"{api_url}/{currency}/{start_date}/{end_date}"
