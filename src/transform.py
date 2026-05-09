@@ -23,10 +23,12 @@ def transform_data(data):
     df = df.sort_values("date")
 
     # SMA7
-    df["sma7"] = df["rate"].rolling(window=7).mean()
+    df["sma7"] = df.groupby("currency")["rate"].transform(
+        lambda x: x.rolling(window=7).mean()
+    )
 
     # % change
-    df["pct_change"] = df["rate"].pct_change() * 100
+    df["pct_change"] = df.groupby("currency")["rate"].pct_change() * 100
 
     # Define signal
     def get_signal(x):
