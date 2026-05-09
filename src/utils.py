@@ -1,7 +1,8 @@
-from datetime import datetime
+import logging
 
-def parse_date(date_str):
-    return datetime.strptime(date_str, "%Y-%m-%d")
-
-def safe_get(dictionary, key, default=None):
-    return dictionary.get(key, default)
+def get_logger(name):
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    return logging.getLogger(name)
