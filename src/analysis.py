@@ -2,8 +2,10 @@ import sqlite3
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from utils import get_logger
 
 DB_PATH = "../data/nbp.db"
+logger = get_logger(__name__)
 
 
 def load_data():
@@ -12,6 +14,7 @@ def load_data():
     conn.close()
     df["date"] = pd.to_datetime(df["date"])
     df = df.sort_values(["currency", "date"])
+    logger.info(f"Loaded {len(df)} records from database for analysis")
     return df
 
 
@@ -33,6 +36,7 @@ def build_financial_table(df):
 
 
 def plot_dynamics(df):
+    logger.info("Generating currency dynamics charts...")
     sns.set_theme(style="darkgrid")
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
@@ -66,8 +70,10 @@ def main():
         print("=" * 85 + "\n")
 
         plot_dynamics(df)
+        logger.info("Analysis completed successfully")
+
     except Exception as e:
-        print(f"Analysis Error: {e}")
+        logger.error(f"Analysis Error: {e}")
         print("Please ensure the 'tabulate' library is installed: pip install tabulate")
 
 
