@@ -1,10 +1,13 @@
 import pandas as pd
+from utils import get_logger
+
+logger = get_logger(__name__)
 
 def transform_data(data):
     transformed_data = []
-
     rates = data["rates"]
     currency = data["code"]
+    logger.info(f"Transforming data for {currency}")
 
     for record in rates:
         date = record["effectiveDate"]
@@ -41,4 +44,5 @@ def transform_data(data):
 
     df["signal"] = df["pct_change"].apply(get_signal)
 
+    logger.info(f"Successfully transformed {currency}")
     return df
