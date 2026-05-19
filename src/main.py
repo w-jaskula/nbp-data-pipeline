@@ -3,11 +3,14 @@ import pandas as pd
 from dotenv import load_dotenv
 from extract import fetch_data
 from transform import transform_data
-from load import save_to_db
+from load import save_to_bigquery
 from utils import get_logger
 
 load_dotenv()
 logger = get_logger(__name__)
+
+PROJECT_ID = "nbp-data-pipeline-496708"
+DATASET_TABLE = "nbp_dataset.currency_rates"
 
 
 def main():
@@ -25,7 +28,8 @@ def main():
 
     logger.info("Merging datasets and saving to database...")
     df = pd.concat([df_eur, df_usd, df_gbp])
-    save_to_db(df, "../data/nbp.db")
+
+    save_to_bigquery(df, project_id=PROJECT_ID, dataset_table=DATASET_TABLE)
 
     logger.info("Pipeline finished successfully")
 
