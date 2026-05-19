@@ -9,6 +9,7 @@ from utils import get_logger
 load_dotenv()
 logger = get_logger(__name__)
 
+
 def main():
     logger.info("Starting NBP Currency Pipeline")
     api_url = os.getenv("NBP_API_URL")
@@ -23,10 +24,11 @@ def main():
     df_gbp = transform_data(gbp_data)
 
     logger.info("Merging datasets and saving to database...")
-    df = pd.concat([df_eur,df_usd,df_gbp])
+    df = pd.concat([df_eur, df_usd, df_gbp])
     save_to_db(df, "../data/nbp.db")
 
     logger.info("Pipeline finished successfully")
+
 
 if __name__ == "__main__":
     main()

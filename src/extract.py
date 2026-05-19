@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 logger = get_logger(__name__)
 
+
 def fetch_data(api_url, currency, start_date, end_date):
     try:
         full_url = f"{api_url}/{currency}/{start_date}/{end_date}"
