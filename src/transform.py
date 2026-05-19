@@ -30,9 +30,11 @@ def transform_data(data):
     df["sma7"] = df.groupby("currency")["rate"].transform(
         lambda x: x.rolling(window=7).mean()
     )
+    df["sma7"] = df["sma7"].round(4)
 
     # % change
     df["pct_change"] = df.groupby("currency")["rate"].pct_change() * 100
+    df["pct_change"] = df["pct_change"].round(2)
 
     # Define signal
     def get_signal(x):
